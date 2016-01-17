@@ -27,6 +27,7 @@ subprojects {
     group = 'com.fnklabs'
 
     println("App module version:" + project.ext.buildVersion)
+    println("App module version:" + version)
 
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
