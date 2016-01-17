@@ -1,0 +1,42 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url 'http://dl.bintray.com/jfrog/jfrog-jars' }
+    }
+    dependencies {
+        classpath(group: 'org.jfrog.buildinfo', name: 'build-info-extractor-gradle', version: '2.2.4')
+    }
+}
+
+
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'maven'
+
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+
+    compileJava.options.encoding = 'UTF-8'
+    compileTestJava.options.encoding = 'UTF-8'
+
+
+    configurations {
+        all*.exclude module: 'slf4j-log4j12'
+        all*.exclude module: 'slf4j-simple'
+        all*.exclude module: 'hibernate-validator'
+        all*.exclude group: 'com.codahale.metrics'
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.1'
+}

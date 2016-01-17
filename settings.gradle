@@ -1,0 +1,4 @@
+rootProject.name = "metrics-parent"
+
+include 'metrics-core', "metrics-codahale"
+
