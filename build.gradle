@@ -9,25 +9,20 @@ buildscript {
     }
 }
 
-
 subprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
     apply plugin: 'maven'
     apply plugin: 'signing'
 
+    project.group = 'com.fnklabs'
+    project.version = '0.1'
 
-    if (hasProperty("teamcity")) {
-        project.ext.buildVersion = teamcity["build.number"]
-    } else {
-        project.ext.buildVersion = '0.1'
+    if (project.hasProperty("teamcity")) {
+        project.version = project.teamcity["build.number"]
     }
 
-    version = project.ext.buildVersion
-    group = 'com.fnklabs'
-
-    println("App module version:" + project.ext.buildVersion)
-    println("App module version:" + version)
+    println("App module version:" + project.version)
 
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
@@ -49,7 +44,7 @@ subprojects {
     }
 
     jar {
-        version = project.ext.buildVersion
+        version = project.version
     }
 
     task javadocJar(type: Jar) {
