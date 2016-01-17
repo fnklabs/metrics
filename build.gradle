@@ -48,13 +48,8 @@ subprojects {
     }
 
     jar {
-//        baseName = 'fnklabs-metrics'
         version = project.ext.buildVersion
     }
-
-//    task wrapper(type: Wrapper) {
-//        gradleVersion = '2.1'
-//    }
 
     task javadocJar(type: Jar) {
         classifier = 'javadoc'
