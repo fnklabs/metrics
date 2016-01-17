@@ -4,7 +4,7 @@ dependencies {
     compile 'com.intellij:annotations:12.0'
 
 
-    compile project(":metrics-core")
+    compile project(":fnklabs-metrics-core")
 
     compile 'org.slf4j:slf4j-api:1.7.13'
     compile 'ch.qos.logback:logback-core:1.1.3'

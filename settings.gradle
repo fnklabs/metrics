@@ -1,4 +1,4 @@
 rootProject.name = "metrics-parent"
 
-include 'metrics-core', "metrics-codahale"
+include 'fnklabs-metrics-core', "fnklabs-metrics-codahale"
 
