@@ -26,4 +26,9 @@ class CounterImp implements Counter {
     public void dec(long n) {
         counter.dec(n);
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(counter.getCount());
+    }
 }
