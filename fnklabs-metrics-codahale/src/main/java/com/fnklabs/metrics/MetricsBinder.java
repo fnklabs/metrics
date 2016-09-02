@@ -30,6 +30,8 @@ public class MetricsBinder implements Metrics {
     }
 
     static {
-        LOG_REPORTER.start(60, TimeUnit.SECONDS);
+        String reportPeriod = System.getProperty("fnklabs.metrics.report_period", "60");
+
+        LOG_REPORTER.start(Long.parseLong(reportPeriod), TimeUnit.SECONDS);
     }
 }

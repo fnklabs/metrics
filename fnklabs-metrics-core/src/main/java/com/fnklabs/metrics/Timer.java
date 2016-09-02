@@ -1,5 +1,7 @@
 package com.fnklabs.metrics;
 
-public interface Timer {
+import java.io.Closeable;
+
+public interface Timer extends Closeable{
     void stop();
 }

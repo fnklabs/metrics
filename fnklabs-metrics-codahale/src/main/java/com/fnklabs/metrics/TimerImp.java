@@ -1,5 +1,6 @@
 package com.fnklabs.metrics;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 class TimerImp implements Timer {
@@ -13,6 +14,11 @@ class TimerImp implements Timer {
     @Override
     public void stop() {
         deltaInNanoSeconds = timer.stop();
+    }
+
+    @Override
+    public void close() throws IOException {
+        timer.close();
     }
 
     @Override
