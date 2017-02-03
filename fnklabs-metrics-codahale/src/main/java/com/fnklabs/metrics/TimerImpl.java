@@ -3,11 +3,11 @@ package com.fnklabs.metrics;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-class TimerImp implements Timer {
+class TimerImpl implements Timer {
     private final com.codahale.metrics.Timer.Context timer;
     private long deltaInNanoSeconds;
 
-    TimerImp(com.codahale.metrics.Timer.Context timer) {
+    TimerImpl(com.codahale.metrics.Timer.Context timer) {
         this.timer = timer;
     }
 

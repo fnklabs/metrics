@@ -1,9 +1,9 @@
 package com.fnklabs.metrics;
 
-class CounterImp implements Counter {
+class CounterImpl implements Counter {
     private final com.codahale.metrics.Counter counter;
 
-    public CounterImp(com.codahale.metrics.Counter counter) {
+    CounterImpl(com.codahale.metrics.Counter counter) {
         this.counter = counter;
     }
 

@@ -21,6 +21,4 @@ public class MetricsBinderTest {
 
         Assert.assertNotNull(testCounter);
     }
-
-
 }

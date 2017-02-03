@@ -1,15 +1,16 @@
 dependencies {
-    testCompile 'junit:junit:4.12'
-
-    compile 'com.intellij:annotations:12.0'
+    compile "com.intellij:annotations:$vers.intellij"
 
     compile project(":fnklabs-metrics-core")
 
-    compile 'org.slf4j:slf4j-api:1.7.13'
-    compile 'ch.qos.logback:logback-core:1.1.7'
-    compile 'ch.qos.logback:logback-classic:1.1.7'
-    compile 'io.dropwizard.metrics:metrics-core:3.1.2',
-            'io.dropwizard.metrics:metrics-jvm:3.1.2',
-            'io.dropwizard.metrics:metrics-healthchecks:3.1.2'
+    compile "org.slf4j:slf4j-api:$vers.slf4j"
+    compile "ch.qos.logback:logback-core:$vers.logback"
+    compile "ch.qos.logback:logback-classic:$vers.logback"
+
+    compile "io.dropwizard.metrics:metrics-core:$vers.dropwizard"
+    compile "io.dropwizard.metrics:metrics-jvm:$vers.dropwizard"
+    compile "io.dropwizard.metrics:metrics-healthchecks:$vers.dropwizard"
+
+    testCompile "junit:junit:$vers.junit"
 
 }
