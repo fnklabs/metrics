@@ -24,7 +24,8 @@ public class MetricsFactory {
                 config.hasPath("ratesUnit") ? TimeUnit.valueOf(config.getString("ratesUnit")) : TimeUnit.SECONDS,
                 config.hasPath("durationUnit") ? TimeUnit.valueOf(config.getString("durationUnit")) : TimeUnit.MICROSECONDS,
                 config.hasPath("report.period") ? config.getInt("report.period") : 5,
-                config.hasPath("report.periodUnit") ? TimeUnit.valueOf(config.getString("report.periodUnit")) : TimeUnit.SECONDS
+                config.hasPath("report.periodUnit") ? TimeUnit.valueOf(config.getString("report.periodUnit")) : TimeUnit.SECONDS,
+                config.hasPath("jmx.enable") ? config.getBoolean("jmx.enable") : false
         );
 
         Set<URL> possibleStaticBinderPathSet = findPossibleStaticBinderPathSet();

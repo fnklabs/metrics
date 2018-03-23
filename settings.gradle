@@ -1,4 +1,8 @@
 rootProject.name = "metrics-parent"
 
-include 'fnklabs-metrics-core', "fnklabs-metrics-codahale"
+include "metrics-core"
+include "metrics-dropwizard"
 
+
+project(":metrics-core").projectDir = file("core")
+project(":metrics-dropwizard").projectDir = file("dropwizard")

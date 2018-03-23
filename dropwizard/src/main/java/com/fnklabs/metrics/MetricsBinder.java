@@ -2,6 +2,7 @@ package com.fnklabs.metrics;
 
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.Slf4jReporter;
+import com.codahale.metrics.jmx.JmxReporter;
 
 public class MetricsBinder implements Metrics {
 
@@ -22,6 +23,15 @@ public class MetricsBinder implements Metrics {
                                    .build();
 
         logReporter.start(configuration.getReportPeriod(), configuration.getReportPeriodUnit());
+
+        if (configuration.isJmxEnable()) {
+            JmxReporter jmxReporter = JmxReporter.forRegistry(metricRegistry)
+                                                 .convertRatesTo(configuration.getRateUnit())
+                                                 .convertDurationsTo(configuration.getDurationUnit())
+                                                 .build();
+
+            jmxReporter.start();
+        }
     }
 
 
@@ -33,6 +43,16 @@ public class MetricsBinder implements Metrics {
     @Override
     public Counter getCounter(String counter) {
         return new CounterImpl(metricRegistry.counter(counter));
+    }
+
+    @Override
+    public Meter getMeter(String name) {
+        return new MeterImpl(metricRegistry.meter(name));
+    }
+
+    @Override
+    public <T extends Number> void registerGauge(String name, Gauge<T> gauge) {
+        metricRegistry.register(name, (com.codahale.metrics.Gauge<T>) gauge::getValue);
     }
 
     @Override

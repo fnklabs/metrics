@@ -40,12 +40,12 @@ subprojects {
 
     ext {
         vers = [
-                slf4j         : '1.7.22',
+                slf4j         : '1.7.25',
                 junit         : '4.12',
                 intellij      : '12.0',
                 typesafeconfig: '1.3.1',
-                logback       : '1.1.9',
-                dropwizard    : '3.1.2'
+                logback       : '1.2.3',
+                dropwizard    : '4.0.2'
         ]
     }
 
@@ -89,15 +89,15 @@ subprojects {
                 }
 
                 pom.project {
-                    name 'draenei'
+                    name 'metrics'
                     packaging 'jar'
-                    description 'ORM for Cassandra but with distributed cache and analytics utils from package'
-                    url 'https://github.com/fnklabs/draenei'
+                    description 'utils for working with metrics'
+                    url 'https://github.com/fnklabs/metrics'
 
                     scm {
-                        url 'scm:git@github.com:fnklabs/draenei.git'
-                        connection 'scm:git@github.com:fnklabs/draenei.git'
-                        developerConnection 'scm:git@github.com:fnklabs/draenei.git'
+                        url 'scm:git@github.com:fnklabs/metrics.git'
+                        connection 'scm:git@github.com:fnklabs/metrics.git'
+                        developerConnection 'scm:git@github.com:fnklabs/metrics.git'
                     }
 
                     licenses {
@@ -121,5 +121,5 @@ subprojects {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.1'
+    gradleVersion = '4.6'
 }

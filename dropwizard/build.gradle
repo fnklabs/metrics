@@ -1,7 +1,7 @@
 dependencies {
     compile "com.intellij:annotations:$vers.intellij"
 
-    compile project(":fnklabs-metrics-core")
+    compile project(":metrics-core")
 
     compile "org.slf4j:slf4j-api:$vers.slf4j"
     compile "ch.qos.logback:logback-core:$vers.logback"
@@ -10,6 +10,7 @@ dependencies {
     compile "io.dropwizard.metrics:metrics-core:$vers.dropwizard"
     compile "io.dropwizard.metrics:metrics-jvm:$vers.dropwizard"
     compile "io.dropwizard.metrics:metrics-healthchecks:$vers.dropwizard"
+    compile "io.dropwizard.metrics:metrics-jmx:$vers.dropwizard"
 
     testCompile "junit:junit:$vers.junit"
 
