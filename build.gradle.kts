@@ -1,9 +1,12 @@
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
 
 plugins {
+    id("java")
     alias(libs.plugins.vanniktech.maven.publish) apply false
 }
-
+java{
+    version = JavaVersion.VERSION_25
+}
 subprojects {
     apply(plugin = "java-library")
     apply(plugin = "idea")
@@ -12,12 +15,6 @@ subprojects {
     repositories {
         mavenLocal()
         mavenCentral()
-    }
-
-    configure<JavaPluginExtension> {
-        toolchain {
-            version = JavaVersion.VERSION_25
-        }
     }
 
     configure<org.gradle.plugins.ide.idea.model.IdeaModel> {
