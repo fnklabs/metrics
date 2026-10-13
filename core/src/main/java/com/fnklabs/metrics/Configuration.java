@@ -2,7 +2,7 @@ package com.fnklabs.metrics;
 
 import java.util.concurrent.TimeUnit;
 
-class Configuration {
+public class Configuration {
     private final TimeUnit rateUnit;
     private final TimeUnit durationUnit;
     private final int reportPeriod;

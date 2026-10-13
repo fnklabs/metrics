@@ -1,10 +1,16 @@
-package com.fnklabs.metrics;
+package com.fnklabs.metrics.dropwizard;
 
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.Slf4jReporter;
 import com.codahale.metrics.jmx.JmxReporter;
+import com.fnklabs.metrics.Configuration;
+import com.fnklabs.metrics.Counter;
+import com.fnklabs.metrics.Gauge;
+import com.fnklabs.metrics.Meter;
+import com.fnklabs.metrics.Metrics;
+import com.fnklabs.metrics.Timer;
 
-public class MetricsBinder implements Metrics {
+public class DropwizardMetrics implements Metrics {
 
     /**
      * MetricsRegistry instance
@@ -16,7 +22,7 @@ public class MetricsBinder implements Metrics {
      */
     private final Slf4jReporter logReporter;
 
-    public MetricsBinder(Configuration configuration) {
+    public DropwizardMetrics(Configuration configuration) {
         logReporter = Slf4jReporter.forRegistry(metricRegistry)
                                    .convertRatesTo(configuration.getRatesUnit())
                                    .convertDurationsTo(configuration.getDurationUnit())

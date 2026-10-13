@@ -3,19 +3,14 @@ package com.fnklabs.metrics;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.net.URL;
-import java.util.Enumeration;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.text.MessageFormat;
+import java.util.List;
+import java.util.ServiceLoader;
 import java.util.concurrent.TimeUnit;
 
 public class MetricsFactory {
-    private static final String BINDER_CLASS_NAME = "com.fnklabs.metrics.MetricsBinder";
     private static final Configuration configuration;
-    private static Metrics METRICS_BINDER;
-    private static String STATIC_BINDER_PATH = "com/fnklabs/MetricsBinder.class";
+    private static final Metrics METRICS_BINDER;
 
     static {
         Config config = ConfigFactory.load("metrics");
@@ -28,45 +23,29 @@ public class MetricsFactory {
                 config.hasPath("jmx.enable") ? config.getBoolean("jmx.enable") : false
         );
 
-        Set<URL> possibleStaticBinderPathSet = findPossibleStaticBinderPathSet();
-
-        if (possibleStaticBinderPathSet.size() > 1) {
-            throw new MultipleBindersException();
-        }
-
-        try {
-            Class<Metrics> metricsClass = (Class<Metrics>) Class.forName(BINDER_CLASS_NAME);
-
-            METRICS_BINDER = metricsClass.getDeclaredConstructor(Configuration.class).newInstance(configuration);
-        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | NoSuchMethodException | InvocationTargetException e) {
-            throw new CanNotFindOrCreateMetricsBinder(e);
-        }
+        METRICS_BINDER = loadProvider().create(configuration);
     }
 
     public static Metrics getMetrics() {
         return METRICS_BINDER;
     }
 
-    private static Set<URL> findPossibleStaticBinderPathSet() {
-        Set<URL> staticLoggerBinderPathSet = new LinkedHashSet<>();
+    private static MetricsProvider loadProvider() {
+        List<MetricsProvider> providers = ServiceLoader.load(MetricsProvider.class, MetricsFactory.class.getClassLoader())
+                                                       .stream()
+                                                       .map(ServiceLoader.Provider::get)
+                                                       .toList();
 
-        try {
-            ClassLoader loggerFactoryClassLoader = MetricsFactory.class.getClassLoader();
-            Enumeration<URL> paths;
-
-            if (loggerFactoryClassLoader == null) {
-                paths = ClassLoader.getSystemResources(STATIC_BINDER_PATH);
-            } else {
-                paths = loggerFactoryClassLoader.getResources(STATIC_BINDER_PATH);
-            }
-
-            while (paths.hasMoreElements()) {
-                URL path = paths.nextElement();
-                staticLoggerBinderPathSet.add(path);
-            }
-        } catch (IOException ioe) {
+        if (providers.isEmpty()) {
+            throw new CanNotFindOrCreateMetricsBinder(
+                    MessageFormat.format("No {0} found on the classpath, add one of metrics implementation modules", MetricsProvider.class.getName())
+            );
         }
 
-        return staticLoggerBinderPathSet;
+        if (providers.size() > 1) {
+            throw new MultipleBindersException(providers);
+        }
+
+        return providers.getFirst();
     }
 }

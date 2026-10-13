@@ -1,15 +1,13 @@
 package com.fnklabs.metrics;
 
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class MetricsFactoryTest {
 
-    @Test(expected = Throwable.class)
+    @Test
     public void testGetMetrics() throws Exception {
-        Metrics metrics = MetricsFactory.getMetrics();
-
-        Assert.fail();
+        Assertions.assertThrows(Throwable.class, MetricsFactory::getMetrics);
     }
 }

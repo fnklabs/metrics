@@ -1,4 +1,6 @@
-package com.fnklabs.metrics;
+package com.fnklabs.metrics.dropwizard;
+
+import com.fnklabs.metrics.Counter;
 
 class CounterImpl implements Counter {
     private final com.codahale.metrics.Counter counter;

@@ -32,6 +32,42 @@ public interface Metrics {
      */
     Meter getMeter(String name);
 
+    /**
+     * Retrieve started timer with tags. Implementations that don't support tags ignore them.
+     *
+     * @param name Timer name
+     * @param tags Timer tags
+     *
+     * @return Timer instance
+     */
+    default Timer getTimer(String name, Tag... tags) {
+        return getTimer(name);
+    }
+
+    /**
+     * Retrieve counter with tags. Implementations that don't support tags ignore them.
+     *
+     * @param counter Counter name
+     * @param tags    Counter tags
+     *
+     * @return Counter instance
+     */
+    default Counter getCounter(String counter, Tag... tags) {
+        return getCounter(counter);
+    }
+
+    /**
+     * Retrieve meter with tags. Implementations that don't support tags ignore them.
+     *
+     * @param name Meter name
+     * @param tags Meter tags
+     *
+     * @return Meter instance
+     */
+    default Meter getMeter(String name, Tag... tags) {
+        return getMeter(name);
+    }
+
     default String createName(Class clazz, String... params) {
         StringBuilder builder = new StringBuilder();
 
@@ -52,6 +88,18 @@ public interface Metrics {
      * @param <T>   Gauge return type
      */
     <T extends Number> void registerGauge(String name, Gauge<T> gauge);
+
+    /**
+     * Register Gauge with tags. Implementations that don't support tags ignore them.
+     *
+     * @param name  Gauge name
+     * @param gauge Gauge instance
+     * @param tags  Gauge tags
+     * @param <T>   Gauge return type
+     */
+    default <T extends Number> void registerGauge(String name, Gauge<T> gauge, Tag... tags) {
+        registerGauge(name, gauge);
+    }
 
     /**
      * Dump all registered metrics

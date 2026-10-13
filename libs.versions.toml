@@ -1,0 +1,31 @@
+[versions]
+dropwizard-metrics = "4.2.40"
+jetbrains-annotations = "26.1.0"
+junit = "5.14.4"
+logback = "1.6.5"
+micrometer = "1.17.1"
+slf4j = "2.0.20"
+typesafe-config = "1.4.9"
+
+[libraries]
+dropwizard-metrics-core = { module = "io.dropwizard.metrics:metrics-core", version.ref = "dropwizard-metrics" }
+dropwizard-metrics-healthchecks = { module = "io.dropwizard.metrics:metrics-healthchecks", version.ref = "dropwizard-metrics" }
+dropwizard-metrics-jmx = { module = "io.dropwizard.metrics:metrics-jmx", version.ref = "dropwizard-metrics" }
+dropwizard-metrics-jvm = { module = "io.dropwizard.metrics:metrics-jvm", version.ref = "dropwizard-metrics" }
+jetbrains-annotations = { module = "org.jetbrains:annotations", version.ref = "jetbrains-annotations" }
+junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+logback-core = { module = "ch.qos.logback:logback-core", version.ref = "logback" }
+micrometer-core = { module = "io.micrometer:micrometer-core", version.ref = "micrometer" }
+micrometer-registry-jmx = { module = "io.micrometer:micrometer-registry-jmx", version.ref = "micrometer" }
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+typesafe-config = { module = "com.typesafe:config", version.ref = "typesafe-config" }
+
+[bundles]
+dropwizard-metrics = ["dropwizard-metrics-core", "dropwizard-metrics-jvm", "dropwizard-metrics-healthchecks", "dropwizard-metrics-jmx"]
+logback = ["logback-core", "logback-classic"]
+
+[plugins]
+vanniktech-maven-publish = { id = "com.vanniktech.maven.publish", version = "0.37.0" }
