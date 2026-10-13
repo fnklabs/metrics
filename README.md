@@ -1,6 +1,20 @@
 # metrics
 Utils for metrics
 
+Requires Java 25.
+
+# Modules
+
+| Module               | Description                                                                 |
+|----------------------|-----------------------------------------------------------------------------|
+| `metrics-core`       | API (`Metrics`, `Timer`, `Counter`, `Meter`, `Gauge`, `Tag`) and `MetricsFactory` |
+| `metrics-dropwizard` | [Dropwizard Metrics](https://metrics.dropwizard.io) implementation (tags are ignored) |
+| `metrics-micrometer` | [Micrometer](https://micrometer.io) implementation with tags support, registers meters in `io.micrometer.core.instrument.Metrics.globalRegistry` |
+
+Add exactly one implementation module to the classpath. `MetricsFactory` discovers it with `java.util.ServiceLoader`
+through the `com.fnklabs.metrics.MetricsProvider` SPI, so a custom implementation only needs to register its provider in
+`META-INF/services/com.fnklabs.metrics.MetricsProvider`.
+
 # Usage
 
 
@@ -77,6 +91,29 @@ public class Test {
 }
 ```
 
+## Tags
+
+Every metric has an overload that accepts tags (labels). Implementations without dimensional metrics support
+(dropwizard) ignore tags.
+
+```java
+import com.fnklabs.metrics.Tag;
+
+public class Test {
+
+    public void main(String[] args) {
+        Metrics metrics = MetricsFactory.getMetrics();
+
+        try (Timer timer = metrics.getTimer("http_request", Tag.of("method", "GET"), Tag.of("status", "200"))) {
+            // code
+        }
+
+        metrics.getCounter("queue_size", Tag.of("queue", "orders")).inc();
+        metrics.getMeter("requests", Tag.of("status", "error")).inc();
+        metrics.registerGauge("pool_size", () -> 10, Tag.of("pool", "main"));
+    }
+}
+```
 
 # Reporting
 

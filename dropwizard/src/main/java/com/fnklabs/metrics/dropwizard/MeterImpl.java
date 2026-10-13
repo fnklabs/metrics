@@ -1,4 +1,6 @@
-package com.fnklabs.metrics;
+package com.fnklabs.metrics.dropwizard;
+
+import com.fnklabs.metrics.Meter;
 
 public class MeterImpl implements Meter {
     private final com.codahale.metrics.Meter meter;

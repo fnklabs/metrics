@@ -1,4 +1,6 @@
-package com.fnklabs.metrics;
+package com.fnklabs.metrics.dropwizard;
+
+import com.fnklabs.metrics.Gauge;
 
 public class GaugeImpl<T extends Number> implements Gauge<T> {
     private final com.codahale.metrics.Gauge<T> gauge;
